@@ -146,52 +146,7 @@ class StateEstimator(object):
 		car_state.current_yaw = self.r_est_euler[self.k][2]
 		#car_state.estimation_step = self.k
 		
-		
-		quat_x = odom.pose.pose.orientation.x
-		quat_y = odom.pose.pose.orientation.y
-		quat_z = odom.pose.pose.orientation.z
-		quat_w = odom.pose.pose.orientation.w
-		self.q_est[self.k] = np.array([quat_x,  quat_y,  quat_z, quat_w])
-		self.r_est_euler[self.k] = self.convert_qest_to_euler(self.q_est[self.k])
-		"""
 
-		car_state = current_state()
-		car_state.current_x = odom.pose.pose.position.x + self.transl_2car[0]
-		car_state.current_y = odom.pose.pose.position.y + self.transl_2car[1]
-		car_state.current_z = odom.pose.pose.position.z + self.transl_2car[2]
-
-		orientation_x = odom.pose.pose.orientation.x
-		orientation_y = odom.pose.pose.orientation.y
-		orientation_w = odom.pose.pose.orientation.w
-		orientation_z = odom.pose.pose.orientation.z
-		t1 = +2.0 * (orientation_w * orientation_z + orientation_x * orientation_y)
-		t2 = +1.0 - 2.0 * (orientation_y * orientation_y + orientation_z * orientation_z)
-		self.current_yaw = math.atan2(t1, t2)
-
-		
-		
-		vel_x = (car_state.current_x - self.prev_x) / (delta_t)
-		vel_y = (car_state.current_y - self.prev_y) / (delta_t)
-		vel_z = (car_state.current_z - self.prev_z) / (delta_t)
-
-		current_speed = float(np.sqrt(vel_x**2 + vel_y**2 + vel_z**2))
-		current_speed = max(0, min(current_speed, 20))
-		car_state.current_vel_x = vel_x                       #odom.twist.twist.linear.x
-		car_state.current_vel_y = vel_y                       #odom.twist.twist.linear.y
-		car_state.current_vel_z = vel_z                       #odom.twist.twist.linear.z
-		car_state.current_speed = current_speed
-		car_state.current_yaw = self.current_yaw
-
-		#car_state.current_yaw = self.r_est_euler[self.k][2]
-
-		self.prev_x = car_state.current_x
-		self.prev_y = car_state.current_y
-		self.prev_z = car_state.current_z	
-
-		self.current_state_pub.publish(car_state)
-		self.k +=1
-		print("current_state was published")
-		"""
 		if self.gnss_i < self.array_length: 
 			#print("\n############Timestamps of the sensors are EQUAL###########\n")
 			
